@@ -1,0 +1,5 @@
+{% for k, v in interfaces.items() %}
+interface {{ v.name }}
+ip address {{ v.ip }} {{ v.mask}}
+{% endfor %}
+

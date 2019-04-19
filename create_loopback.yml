@@ -1,0 +1,17 @@
+---
+# create and configure ios loopback interfaces
+
+- name: "Play 1: create loopback interfaces"
+  hosts: ios-routers
+  tasks:
+    - name: "Task 1: create interface loopback and assign ip address"
+      ios_config:
+        src: "templates/interface_config.j2" 
+      register: cli_output
+      notify: loopback_was_changed
+
+  handlers:
+    - name: "Handler 1: print changes oonly if changes occured"
+      debug:
+        var: cli_output['updates']
+      listen: loopback_was_changed
